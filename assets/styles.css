@@ -1,37 +1,33 @@
-/* =========================================================================
-   INTELLIGENT CREDIT RISK SCORING - PREMIUM UI SYSTEM
-   ========================================================================= */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* --- 1. GLOBAL TYPOGRAPHY & RESET --- */
+
 html,
 body,
 [class*="css"] {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     color: #111827 !important;
-    /* Deep Stripe-like blue-gray */
+   
 }
 
-/* Force markdown elements to be black to override dark mode defaults */
+
 .stMarkdown,
 .stMarkdown p,
 .stMarkdown span {
     color: #111827 !important;
 }
 
-/* Base App Background */
 .stApp {
     background-color: #f7f9fc;
-    /* Very faint, cool-toned off-white */
+ 
     background-image:
         radial-gradient(at 0% 0%, hsla(210, 100%, 97%, 1) 0px, transparent 50%),
         radial-gradient(at 100% 0%, hsla(220, 100%, 95%, 1) 0px, transparent 50%);
     background-attachment: fixed;
 }
 
-/* --- 2. HEADER & BRANDING --- */
-/* Override h1 */
+
 h1 {
     font-weight: 700 !important;
     letter-spacing: -1.5px !important;
@@ -43,7 +39,7 @@ h1 {
     padding-top: 1rem !important;
 }
 
-/* Subtitle text below h1 */
+
 h1+div p {
     font-size: 1.15rem !important;
     color: #4b5563 !important;
@@ -52,7 +48,7 @@ h1+div p {
     margin-bottom: 2rem !important;
 }
 
-/* Section Headers (h3) */
+
 h3 {
     font-weight: 600 !important;
     color: #111827 !important;
@@ -63,7 +59,7 @@ h3 {
     padding-bottom: 0.5rem;
 }
 
-/* Small Subheaders */
+
 .demographics-header {
     color: #6b7280;
     font-size: 0.8rem;
@@ -77,8 +73,7 @@ h3 {
     padding-bottom: 6px;
 }
 
-/* --- 3. CONTAINERS & FORMS (Glassmorphism & Shadows) --- */
-/* The main form container */
+
 [data-testid="stForm"] {
     background-color: #ffffff !important;
     border: 1px solid rgba(229, 231, 235, 0.8) !important;
@@ -92,7 +87,7 @@ h3 {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Regular Containers (Metrics/Results) */
+
 div[data-testid="stVerticalBlock"]>div>div[data-testid="stVerticalBlock"]>div[style*="border: 1px solid"] {
     background-color: #ffffff !important;
     border: 1px solid rgba(229, 231, 235, 0.8) !important;
@@ -101,8 +96,7 @@ div[data-testid="stVerticalBlock"]>div>div[data-testid="stVerticalBlock"]>div[st
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* --- 4. INPUT WIDGETS --- */
-/* Number Inputs, Selectboxes, Text Inputs */
+
 div[data-baseweb="select"]>div {
     background-color: #f9fafb !important;
     border: 1px solid #d1d5db !important;
@@ -110,18 +104,18 @@ div[data-baseweb="select"]>div {
     color: #1f2937 !important;
     font-size: 0.95rem !important;
     padding: 2px 8px !important;
-    /* Adding minimal padding to secure height */
+
     transition: all 0.2s ease !important;
 }
 
 div[data-baseweb="select"] * {
     color: #1f2937 !important;
-    /* Force all text inside the select to be dark */
+
 }
 
 div[data-baseweb="select"] div[data-testid="stMarkdownContainer"] {
     color: #1f2937 !important;
-    /* Ensure the text inside the select is explicitly dark */
+
 }
 
 input[type="number"],
@@ -135,7 +129,7 @@ input[type="text"] {
     transition: all 0.2s ease !important;
 }
 
-/* Focus State for Inputs */
+
 div[data-baseweb="select"]>div:hover,
 div[data-baseweb="select"]>div:focus-within,
 input[type="number"]:focus,
@@ -148,25 +142,23 @@ input[type="text"]:hover {
     outline: none !important;
 }
 
-/* Form Layout Tightening - Override Streamlit spacing */
+
 [data-testid="stForm"] [data-testid="stVerticalBlock"] {
     gap: 1rem !important;
-    /* Softened gap to prevent overlapping */
 }
 
-/* Clean up widget margins without breaking them */
 .stSelectbox,
 .stNumberInput,
 .stSlider {
     margin-bottom: 0px !important;
 }
 
-/* Input Labels Tightening */
+
 label[data-testid="stWidgetLabel"] {
     font-weight: 500 !important;
     color: #4b5563 !important;
     font-size: 0.85rem !important;
-    /* Slightly smaller labels */
+
     margin-bottom: 2px !important;
 }
 
@@ -180,8 +172,7 @@ label[data-testid="stWidgetLabel"] {
     box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3) !important;
 }
 
-/* --- 5. BUTTONS --- */
-/* Primary Submit Button */
+
 button[kind="primaryFormSubmit"],
 button[kind="primary"] {
     background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
@@ -212,8 +203,7 @@ button[kind="primary"]:active {
     box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
 }
 
-/* --- 6. ALERTS & STATUS MESSAGES --- */
-/* Success Banner (Low Risk) */
+
 [data-testid="stAlert"] {
     border-radius: 12px !important;
     padding: 20px !important;
@@ -225,14 +215,14 @@ div.stAlert:has(div[data-baseweb="notification"] > div[role="alert"] > div > svg
     color: #065f46 !important;
 }
 
-/* Error Banner (High Risk) */
+
 div.stAlert:has(div[data-baseweb="notification"] > div[role="alert"] > div > svg[aria-label="error"]) {
     background-color: #fef2f2 !important;
     border: 1px solid #ef4444 !important;
     color: #991b1b !important;
 }
 
-/* Custom Alert Headings */
+
 [data-testid="stAlert"] h3 {
     border-bottom: none !important;
     margin-bottom: 0.5rem !important;
@@ -240,7 +230,7 @@ div.stAlert:has(div[data-baseweb="notification"] > div[role="alert"] > div > svg
     font-size: 1.25rem !important;
 }
 
-/* --- 7. DIVIDERS & HR --- */
+
 hr {
     border: none !important;
     height: 1px !important;
@@ -250,7 +240,7 @@ hr {
     /* Tighter margins */
 }
 
-/* --- 8. EMPTY STATE PLACEHOLDER --- */
+
 .empty-state {
     background-color: #ffffff;
     border: 2px dashed #cbd5e1;
