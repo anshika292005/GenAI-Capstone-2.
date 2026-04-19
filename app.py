@@ -904,6 +904,28 @@ with tab_agent:
     if not st.session_state.agent_chat_history:
         st.info("Click 'Generate Agentic Analysis' to open the decision conversation.")
     else:
+        if getattr(st.session_state, 'latest_decision', None) and getattr(st.session_state, 'latest_borrower_profile', None):
+            metric_snapshot = [{
+                "Model": primary_model_name,
+                "Avg Risk": f"{float(st.session_state.latest_decision.get('risk_score', 0)):.3f}",
+                "High-Risk Share": "100%" if float(st.session_state.latest_decision.get('risk_score', 0)) >= 0.5 else "0%",
+                "Avg Credit Score": str(int(850 - (float(st.session_state.latest_decision.get('risk_score', 0)) * 550)))
+            }]
+            try:
+                report_bytes = generate_lending_report_pdf(
+                    borrower_profile=st.session_state.latest_borrower_profile,
+                    lending_decision=st.session_state.latest_decision,
+                    model_metrics=metric_snapshot
+                )
+                st.download_button(
+                    label="📥 Download PDF Report",
+                    data=report_bytes,
+                    file_name="Agentic_Analysis_Report.pdf",
+                    mime="application/pdf"
+                )
+            except Exception as e:
+                st.error(f"Could not generate PDF report: {str(e)}")
+
         for role, message in st.session_state.agent_chat_history:
             with st.chat_message(role):
                 st.markdown(message)
