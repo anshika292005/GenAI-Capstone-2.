@@ -102,7 +102,7 @@ The latest iteration added three meaningful upgrades: uploaded borrower CSVs now
 | Member | Contribution |
 | :--- | :--- |
 | Anshika Seth (2401010080) | Model Development, Streamlit UI, Deployment  |
-| Abhijeet Dey (2401010014) | Model Development, Report|
+| Abhijeet Dey (2401010014) | Model Development, Report Making|
 | Aditya Ranjan(2401010035) | Video Explanation , Analysis | 
 ## Conclusion
 
