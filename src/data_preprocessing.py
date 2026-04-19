@@ -8,7 +8,7 @@ import joblib
 import os
 
 def handle_missing_values(X_train, X_test):
-    # Mean imputation for numerical columns
+    # Mean Imputation........
     imputer = SimpleImputer(strategy='median')
     X_train_imputed = pd.DataFrame(imputer.fit_transform(X_train), columns=X_train.columns, index=X_train.index)
     X_test_imputed = pd.DataFrame(imputer.transform(X_test), columns=X_test.columns, index=X_test.index)
