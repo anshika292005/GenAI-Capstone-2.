@@ -8,7 +8,7 @@ def create_features(df):
     """
     df_engineered = df.copy()
     
-    # Drop index column if present
+
     if 'Unnamed: 0' in df_engineered.columns:
         df_engineered = df_engineered.drop(columns=['Unnamed: 0'])
         
@@ -17,15 +17,14 @@ def create_features(df):
     
     for col in categorical_cols:
         if col in df_engineered.columns:
-            # fillna first
+
             df_engineered[col] = df_engineered[col].fillna('Unknown').astype(str)
             
-    # Dummy encoding
+
     existing_cat = [c for c in categorical_cols if c in df_engineered.columns]
     if existing_cat:
         df_engineered = pd.get_dummies(df_engineered, columns=existing_cat, drop_first=False)
-    
-    # For numeric columns
+
     numeric_fills = ['Age', 'Credit amount', 'Duration']
     for col in numeric_fills:
         if col in df_engineered.columns:
