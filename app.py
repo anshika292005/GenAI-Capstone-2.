@@ -589,8 +589,8 @@ def build_gauge(risk_score: float) -> go.Figure:
     fig = go.Figure(
         go.Indicator(
             mode="gauge+number",
-            value=risk_score * 100,
-            number={"suffix": "%", "font": {"size": 44, "color": "#e8f7ff"}},
+            value=round(risk_score * 100, 1),
+            number={"suffix": "%", "valueformat": ".1f", "font": {"size": 44, "color": "#e8f7ff"}},
             title={"text": "Borrower Risk Signal", "font": {"size": 20, "color": "#8baecc"}},
             gauge={
                 "axis": {"range": [0, 100], "tickcolor": "#8baecc"},
