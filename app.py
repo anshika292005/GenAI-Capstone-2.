@@ -558,7 +558,11 @@ def score_dataset(dataset: pd.DataFrame, model: Any) -> pd.DataFrame:
     working = prepared["normalized"]
     features = create_features(working)
     aligned = align_features(model, features)
-    probabilities = actual_model(model).predict_proba(aligned)[:, 1]
+    probabilities_raw = actual_model(model).predict_proba(aligned)
+    # Normalize: sklearn version mismatch can return raw counts instead of probabilities
+    row_sums = probabilities_raw.sum(axis=1, keepdims=True)
+    row_sums[row_sums == 0] = 1  # avoid division by zero
+    probabilities = (probabilities_raw / row_sums)[:, 1]
 
     scored = working.copy()
     if "Unnamed: 0" in scored.columns:

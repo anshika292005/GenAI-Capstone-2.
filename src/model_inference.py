@@ -149,7 +149,10 @@ def predict_risk_score(
 
     actual_model = resolved_model.best_estimator_ if hasattr(resolved_model, "best_estimator_") else resolved_model
     _patch_monotonic_cst(actual_model)
-    risk_score = float(actual_model.predict_proba(aligned_features)[0][1])
+    proba_raw = actual_model.predict_proba(aligned_features)[0]
+    # Normalize: sklearn version mismatch can cause raw counts instead of probabilities
+    proba_sum = proba_raw.sum()
+    risk_score = float(proba_raw[1] / proba_sum) if proba_sum > 0 else 0.0
     risk_band = "High" if risk_score >= 0.5 else "Low"
 
     return {
