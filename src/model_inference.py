@@ -10,6 +10,30 @@ from src.feature_engineering import create_features
 from src.preprocessing_pipeline import normalize_borrower_frame
 
 
+def _patch_monotonic_cst(estimator: Any) -> None:
+    """
+    Patch missing ``monotonic_cst`` attribute on tree-based estimators loaded
+    from older scikit-learn versions.  Newer sklearn (≥ 1.4) checks this
+    attribute in ``_support_missing_values`` and raises an ``AttributeError``
+    when it is absent.
+    """
+    if hasattr(estimator, "tree_") and not hasattr(estimator, "monotonic_cst"):
+        estimator.monotonic_cst = None
+
+    # Handle ensemble models (RandomForest, GradientBoosting, etc.)
+    if hasattr(estimator, "estimators_"):
+        for sub in estimator.estimators_:
+            # RandomForest stores estimators in a flat list
+            if hasattr(sub, "tree_"):
+                if not hasattr(sub, "monotonic_cst"):
+                    sub.monotonic_cst = None
+            # GradientBoosting may nest arrays
+            if hasattr(sub, "__iter__"):
+                for s in sub:
+                    if hasattr(s, "tree_") and not hasattr(s, "monotonic_cst"):
+                        s.monotonic_cst = None
+
+
 DEFAULT_MODEL_CANDIDATES = (
     "models/logistic_regression.pkl",
     "models/decision_tree.pkl",
@@ -124,6 +148,7 @@ def predict_risk_score(
     aligned_features = _align_features(resolved_model, features)
 
     actual_model = resolved_model.best_estimator_ if hasattr(resolved_model, "best_estimator_") else resolved_model
+    _patch_monotonic_cst(actual_model)
     risk_score = float(actual_model.predict_proba(aligned_features)[0][1])
     risk_band = "High" if risk_score >= 0.5 else "Low"
 

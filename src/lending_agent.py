@@ -336,6 +336,7 @@ def run_agentic_lending_decision(
             prediction=prediction,
             policy_context=_format_policy_exception_guidance(policy_context),
         )
+        # Ensure new keys exist in fallback
         fallback.update({
             "recommendations": "Manual review of credit history and verification of stated income sources.",
             "references": _format_policy_exception_guidance(policy_context),
